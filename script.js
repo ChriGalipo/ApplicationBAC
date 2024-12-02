@@ -8,12 +8,17 @@ document.addEventListener("DOMContentLoaded", () => {
     const siButton = document.getElementById("yes-button");
 
     const exitFullscreen = () => {
-        if (document.fullscreenElement) {
-            document.exitFullscreen().catch((err) => {
-                console.error("Errore durante l'uscita dalla modalità schermo intero:", err);
-            });
+        if (document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement) {
+            if (document.exitFullscreen) {
+                document.exitFullscreen();
+            } else if (document.webkitExitFullscreen) {
+                document.webkitExitFullscreen();
+            } else if (document.mozCancelFullScreen) {
+                document.mozCancelFullScreen();
+            }
         }
     };
+
 
     
     startButton.addEventListener("click", () => {
