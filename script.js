@@ -7,6 +7,14 @@ document.addEventListener("DOMContentLoaded", () => {
     const noButton = document.getElementById("no-button");
     const siButton = document.getElementById("yes-button");
 
+    const exitFullscreen = () => {
+        if (document.fullscreenElement) {
+            document.exitFullscreen().catch((err) => {
+                console.error("Errore durante l'uscita dalla modalità schermo intero:", err);
+            });
+        }
+    };
+
     
     startButton.addEventListener("click", () => {
         startScreen.classList.remove("active");
@@ -16,6 +24,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     
     video.addEventListener("ended", () => {
+        exitFullscreen();
         videoScreen.classList.remove("active");
         finalScreen.classList.add("active");
     });
