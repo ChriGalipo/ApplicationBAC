@@ -67,4 +67,59 @@ document.addEventListener("DOMContentLoaded", () => {
         window.open("https://www.youtube.com/watch?v=-XHWQLHLPm4&ab_channel=TOMS");
     });
 
+    document.addEventListener("DOMContentLoaded", () => {
+    const startScreen = document.getElementById("start-screen");
+    const videoScreen = document.getElementById("video-screen");
+    const finalScreen = document.getElementById("final-screen");
+    const startButton = document.getElementById("start-button");
+    const video = document.getElementById("video");
+    const noButton = document.getElementById("no-button");
+    const siButton = document.getElementById("yes-button");
+
+    // Funzione per spostare il pulsante NO
+    const moveNoButton = () => {
+        const form = noButton.closest(".form-container");
+        const parentRect = form.getBoundingClientRect();
+
+        const buttonWidth = noButton.offsetWidth;
+        const buttonHeight = noButton.offsetHeight;
+
+        const maxX = parentRect.width - buttonWidth;
+        const maxY = parentRect.height - buttonHeight;
+
+        const randomX = Math.random() * maxX;
+        const randomY = Math.random() * maxY;
+
+        noButton.style.position = "absolute";
+        noButton.style.left = `${randomX / 1.5}px`;
+        noButton.style.top = `${randomY}px`;
+        noButton.textContent = "NO😜";
+        noButton.style.width = "60px";
+        noButton.style.height = "60px";
+    };
+
+    // Evento di clic per avviare
+    startButton.addEventListener("click", () => {
+        startScreen.classList.remove("active");
+        videoScreen.classList.add("active");
+        video.play();
+    });
+
+    // Evento alla fine del video
+    video.addEventListener("ended", () => {
+        videoScreen.classList.remove("active");
+        finalScreen.classList.add("active");
+    });
+
+    // Gestione del clic o tocco sul pulsante NO
+    noButton.addEventListener("mouseover", moveNoButton); // Per dispositivi desktop
+    noButton.addEventListener("click", moveNoButton); // Per dispositivi mobili
+
+    // Evento click sul pulsante Sì
+    siButton.addEventListener("click", () => {
+        window.open("https://www.youtube.com/watch?v=-XHWQLHLPm4&ab_channel=TOMS");
+    });
+});
+
+
 });
