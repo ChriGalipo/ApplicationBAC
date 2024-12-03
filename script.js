@@ -6,18 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const video = document.getElementById("video");
     const noButton = document.getElementById("no-button");
     const siButton = document.getElementById("yes-button");
-
-    const exitFullscreen = () => {
-        if (document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement) {
-            if (document.exitFullscreen) {
-                document.exitFullscreen();
-            } else if (document.webkitExitFullscreen) {
-                document.webkitExitFullscreen();
-            } else if (document.mozCancelFullScreen) {
-                document.mozCancelFullScreen();
-            }
-        }
-    };
+    const nextButton = document.getElementById("next-button");
 
 
     
@@ -29,10 +18,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
     
     video.addEventListener("ended", () => {
-        exitFullscreen();
+        nextButton.classList.remove("hide");
+    });
+    
+    nextButton.addEventListener("click", () => {
         videoScreen.classList.remove("active");
         finalScreen.classList.add("active");
     });
+    
 
     
     noButton.addEventListener("mouseover", () => {
@@ -52,8 +45,8 @@ document.addEventListener("DOMContentLoaded", () => {
         noButton.style.left = `${randomX/1.5}px`;
         noButton.style.top = `${randomY}px`;
         noButton.textContent = "NO😜";
-        noButton.style.width = "60px";
-        noButton.style.height = "60px";
+        noButton.classList.add("selected");
+
     });
 
     noButton.addEventListener("click", () => {
@@ -73,8 +66,8 @@ document.addEventListener("DOMContentLoaded", () => {
         noButton.style.left = `${randomX/1.5}px`;
         noButton.style.top = `${randomY}px`;
         noButton.textContent = "NO😜";
-        noButton.style.width = "60px";
-        noButton.style.height = "60px";
+        noButton.classList.add("selected");
+
     });
 
     noButton.addEventListener("touch", () => {
@@ -94,34 +87,14 @@ document.addEventListener("DOMContentLoaded", () => {
         noButton.style.left = `${randomX/1.5}px`;
         noButton.style.top = `${randomY}px`;
         noButton.textContent = "NO😜";
-        noButton.style.width = "60px";
-        noButton.style.height = "60px";
+        noButton.classList.add("selected");
     });
 
-    noButton.addEventListener("touchstart", moveNoButton); // Per dispositivi mobili
-    noButton.addEventListener("click", moveNoButton); // Per dispositivi desktop
-
     siButton.addEventListener("click", () => {
+        console.log("click")
         window.open("https://www.youtube.com/watch?v=-XHWQLHLPm4&ab_channel=TOMS");
     });
 
-    const simulateClickOutside = () => {
-        const event = new MouseEvent("click", {
-            view: window,
-            bubbles: true,
-            cancelable: true
-        });
-
-        // Crea un elemento temporaneo per simulare il clic
-        const tempElement = document.createElement("div");
-        tempElement.style.position = "absolute";
-        tempElement.style.left = "-9999px";
-        tempElement.style.top = "-9999px";
-        document.body.appendChild(tempElement);
-
-        tempElement.dispatchEvent(event);
-        document.body.removeChild(tempElement); // Rimuovi l'elemento
-    };
     
 
 });
